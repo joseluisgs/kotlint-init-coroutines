@@ -3,7 +3,7 @@ Jugando con Corrutinas en Kotlin
 
 [![Kotlin](https://img.shields.io/badge/Code-Kotlin-blueviolet)](https://kotlinlang.org/)
 [![LISENCE](https://img.shields.io/badge/Lisence-MIT-green)]()
-![GitHub](https://img.shields.io/github/last-commit/joseluisgs/kotlin-init-coroutines)
+![GitHub](https://img.shields.io/github/last-commit/joseluisgs/kotlint-init-coroutines)
 
 
 ![imagen](https://miro.medium.com/max/2000/1*I3OMp4jIytzR7GKpRkEiAA.png)
