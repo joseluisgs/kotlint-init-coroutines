@@ -19,17 +19,17 @@ fun hilos() {
             thread {
                 // Los suspendemos 1 segundo
                 Thread.sleep(1000)
-                print('.')
+                log('.')
             }
         }
         // Esperamos a que terminen
         threads.forEach {
             it.join()
         }
-        print('\n')
+        log('\n')
     }
     // Medimos el tiempo
-    println("Time: $time")
+    log("Time: $time")
 }
 
 // El nombre de runBlocking significa que el hilo que lo ejecuta (en este caso, el hilo principal) se bloquea durante la duración de la llamada,
@@ -45,15 +45,17 @@ fun coroutines() = runBlocking {
                 // es una función de suspensión especial. Suspende la corrutina durante un tiempo específico. La suspensión de una corrutina no bloquea el subproceso subyacente,
                 // pero permite que otras corrutinas se ejecuten y utilicen el subproceso subyacente para su código.
                 delay(1000)
-                print('.')
+                log('.')
             }
         }
         // Esperamos que terminen
         coroutines.forEach {
             it.join()
         }
-        print('\n')
+        log('\n')
     }
 
-    println("Time: $time")
+    log("Time: $time")
 }
+
+
