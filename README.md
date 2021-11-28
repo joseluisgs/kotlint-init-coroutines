@@ -110,7 +110,7 @@ se está ejecutando. Por lo tanto, no deben estar atados a ningún componente es
 
 ## Extra – Convertir callbacks a corrutinas
 Existe una función llamada suspendCancellableCoroutine, que nos permite pasar de un mundo a otro:
-```kotlin`
+```kotlin
 suspend fun suspendAsyncLogin(username: String, password: String): User =
     suspendCancellableCoroutine { continuation ->
         userService.doLoginAsync(username, password) { user ->
@@ -118,6 +118,7 @@ suspend fun suspendAsyncLogin(username: String, password: String): User =
         }
     }
 ```
+
 Esta función devuelve un objeto continuation que se puede utilizar para devolver el resultado del callback. 
 Simplemente llame a continuation.resume y ese resultado será devuelto por la suspending function a la corrutina padre. ¡Es así fácil!
 
