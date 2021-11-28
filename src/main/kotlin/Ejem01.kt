@@ -7,8 +7,8 @@ import kotlin.system.measureTimeMillis
 // Hilos vs Coroutines
 fun main() {
     println("¡Bienvenido a \"Coroutines con Kotlin\"!")
-    hilos();
-    coroutines();
+    hilos()
+    coroutines()
 }
 
 fun hilos() {

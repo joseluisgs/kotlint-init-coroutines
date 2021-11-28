@@ -107,6 +107,9 @@ Los constructores launch y async son en realidad funciones de extensión de la i
 ### Global scope
 Es un scope general que se puede usar para cualquier corrutina que deba continuar con la ejecución mientras la aplicación 
 se está ejecutando. Por lo tanto, no deben estar atados a ningún componente específico que pueda ser destruido.
+Crear una coroutine valiéndose del objeto GlobalScope, se asemeja a crear una coroutine con un Job no cancelable. Es decir, la coroutine romperá la relación con el Scope donde fue creada
+y vivirá hasta que la aplicación finalice su ejecución. Por esta razón su uso se desaconseja a tal punto que solo
+debe hacerse cuando sabes muy bien lo que estás haciendo.
 
 ## Extra – Convertir callbacks a corrutinas
 Existe una función llamada suspendCancellableCoroutine, que nos permite pasar de un mundo a otro:
