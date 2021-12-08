@@ -140,13 +140,32 @@ Se comunican por el paso de mensajes de los métodos send y receive.
  Cuando no se le establece un tamaño al canal, la transmisión se da solamente hasta que se han invocado ambas funciones. 
  Esto quiere decir que si la función send es invocada, el hilo se suspenderá hasta que la función receive sea invocada y viceversa. 
  A esta dinámica se le conoce como rendezvous.
+![channels](https://play.kotlinlang.org/resources/hands-on/Introduction%20to%20Coroutines%20and%20Channels/assets/8-channels/UsingChannelManyCoroutines.png)
 
 ### Interfaces SendChannel y ReceiveChannel
 Cuando programas de una manera bien estructura aplicando los principios de abstracción y encapsulamiento,
 limitas las acciones que se pueden realizar desde el exterior de un objeto, evitando comprometer los datos más de lo
 estrictamente necesario. Teniendo en cuenta ésto, puedes enviar y recibir Channels sin exponer toda su implementación
 simplemente pasando como parámetro o retornando un SendChannel o un ReceiveChannel según sea el caso.
+Si queremos enviar un mensaje a un Channel, debemos usar el método send de la interfaz SendChannel por lo que no podremos recibir.
+Si queremos recibir un mensaje de un Channel debemos usar el método receive de la interfaz ReceiveChannel por lo que no podremos enviar.
+De esta manera controlamos el uso que se le da.
 
+### Pipelines
+Un pipeline es un patón donde una corrutina produce un conjunto infinito de valores sobre un stream.
+Otra corrutina (o varias) pueden consumir esos valores y procesarlos, o relizar filtros o transformaciones.
+
+numbersFrom(2) -> filter(2) -> filter(3) -> filter(5) -> filter(7) ...
+
+### Fan-out
+Un fan-out es cuando múltiple corritinas reciben mensajes del mismo canal. Ellas mismas se distribuyen el trabajo.
+
+### Fan-in
+Un fan-in es cuando múltiples corrutinas envían mensajes al mismo canal. Una corrutina espera a que todas las otras
+
+### BufferedChannel
+Un BufferedChannel es cuando le indicamos al chanel un tamaño determinado, bloqueará la ejecución de la corrutina hasta que
+se vacíe si el buffer está lleno.
 ## Autor
 
 Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twitter.com/joseluisgonsan)
@@ -183,5 +202,6 @@ Este proyecto está licenciado bajo licencia **MIT**, si desea saber más, visit
 
 ### Referencias
 - [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines.html)
+- [Kotlin Hands On: Introduction to Coroutines and Channels](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/01_Introduction)
 - https://medium.com/kotlin-en-android/coroutines-con-kotlin-constructores-de-coroutines-8a9e10c8187e
 - https://devexperto.com/corrutinas/
