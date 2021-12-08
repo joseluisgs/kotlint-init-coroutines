@@ -125,6 +125,28 @@ suspend fun suspendAsyncLogin(username: String, password: String): User =
 Esta función devuelve un objeto continuation que se puede utilizar para devolver el resultado del callback. 
 Simplemente llame a continuation.resume y ese resultado será devuelto por la suspending function a la corrutina padre. ¡Es así fácil!
 
+## Synchronized y Mutex
+Para comunicar variables entre hilos podemos usar un objeto de tipo Mutex o métodos Synchronized. En el ejemplo 11
+tenemos un ejemplo de productor consumidor. El problema es el cuello de botella que se genera. Es decir, 
+esto es precisamente lo que pasa cuando estableces bloques donde solamente un hilo a la vez puede estar en ejecución ya sea 
+para modificar un recurso compartido (problema de la sección crítica).
+
+## Canales
+ Un Channel es una estructura de datos que permite la comunicación entre coroutines. La ventaja de usar un Channel 
+ es que el control de la lectura y escritura ya está controlado y soportado dentro de
+su estructura, es decir, un Channel es thread-safe por lo tanto la implementación de nuestro programa será más simple.
+Se comunican por el paso de mensajes de los métodos send y receive.
+ Debes saber que la función send es una suspend function que opera en conjunto con la función receive que también es una suspend function. 
+ Cuando no se le establece un tamaño al canal, la transmisión se da solamente hasta que se han invocado ambas funciones. 
+ Esto quiere decir que si la función send es invocada, el hilo se suspenderá hasta que la función receive sea invocada y viceversa. 
+ A esta dinámica se le conoce como rendezvous.
+
+### Interfaces SendChannel y ReceiveChannel
+Cuando programas de una manera bien estructura aplicando los principios de abstracción y encapsulamiento,
+limitas las acciones que se pueden realizar desde el exterior de un objeto, evitando comprometer los datos más de lo
+estrictamente necesario. Teniendo en cuenta ésto, puedes enviar y recibir Channels sin exponer toda su implementación
+simplemente pasando como parámetro o retornando un SendChannel o un ReceiveChannel según sea el caso.
+
 ## Autor
 
 Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twitter.com/joseluisgonsan)
