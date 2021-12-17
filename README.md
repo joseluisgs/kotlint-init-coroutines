@@ -32,6 +32,7 @@ Jugando con Corrutinas en Kotlin
     - [Fan-in](#fan-in)
     - [BufferedChannel](#bufferedchannel)
     - [Constructor Producer](#constructor-producer)
+  - [Reactividad](#reactividad)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -203,6 +204,25 @@ Importante en la producción ye l consumo por canales: Según la documentación 
 de dos maneras: con la función consumeEach y con un ciclo for valiéndose del hecho de que un canal implementa iteradores. 
 Cuando se consumen los datos aplicando el patrón Fan-Out, si uno de los consumidores falla, podría repercutir en todos los 
 involucrados, es decir, tanto en los emisores como en los demás receptores. 
+
+## Reactividad
+La programación reactiva, o Reactive Programming, es un paradigma enfocado en el trabajo con flujos de datos finitos o 
+infinitos de manera asíncrona, permitiendo que estos datos se propaguen generando cambios en la aplicación, es decir, 
+“reaccionan” a los datos ejecutando una serie de eventos. Ver ejemplos Ejem20 y Ejem21.
+
+La programación reactiva está relacionada con el [patrón de diseño Observer](https://refactoring.guru/es/design-patterns/observer): cuando hay un cambio de estado en un objeto, 
+los otros objetos son notificados y actualizados acorde. Por lo tanto, en lugar de sondear eventos para los cambios, 
+los eventos se realizan de forma asíncrona para que los observadores puedan procesarlos.
+
+Utilizando programación asíncrona, la idea es simple: disminuir el uso ineficiente de recursos usando recursos que, de 
+lo contrario, estarían inactivos, ya que permanecen a la espera de actividad de algún componente. Los nuevos datos se 
+notifican a los clientes en vez de tener que solicitarlos, debido a que la entrada y salida de datos es asíncrona. 
+Por ello se invierte el diseño normal del procesamiento de entrada y salida. Este enfoque libera al cliente para hacer 
+otras cosas mientras espera nuevas notificaciones.
+
+A Lo largo de estos ejemplos hemos visto como usando Canales (Channels) y Flujos(Flows) podemos implementarlos. 
+Pero además en el Ejm17 y Ejem18, se muestra un ejemplo sencillo del patrón Observer usado cuando no queremos usar estas estructuras.
+La primera opción es implementado por nosotros. La segunda opción usando los Delegados de Kotlin.
 
 
 ## Autor

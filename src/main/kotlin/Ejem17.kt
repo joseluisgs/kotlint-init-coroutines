@@ -61,3 +61,4 @@ fun withProducer() {
 
     log("End")
 }
+
