@@ -39,6 +39,7 @@ Jugando con Corrutinas en Kotlin
     - [Monitores](#monitores)
     - [Atomicidad y estructuras thread-safe](#atomicidad-y-estructuras-thread-safe)
     - [Exclusión mutua](#exclusión-mutua)
+    - [Confinamiento de Hilo](#confinamiento-de-hilo)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -261,6 +262,11 @@ Podemos usar los tipos AtomicInteger, Log, o Reference o estructuras como Blocki
 
 ### Exclusión mutua
 Para aplicar la exclusión mutua de una manera más simple en el mundo de las coroutines disponemos del objeto de tipo Mutex. La instrucción mutex.withLock {...} es la forma abreviada de mutex.lock(); try { ... } finally { mutex.unlock() }.
+
+### Confinamiento de Hilo
+El “truco” en sí no es precisamente usar el hilo principal, sino que un único hilo, no importa cual, pero solamente ese hilo sea el que modifica la variable. A esta técnica se le conoce como “confinamiento de hilo” — thread confinement” en Inglés — . Puedes usar tu propio hilo dedicado creándolo con una llamada a la función newSingleThreadContext y que sea este el único encargado de modificar la sección crítica.
+
+
 
 ## Autor
 

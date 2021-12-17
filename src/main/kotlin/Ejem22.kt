@@ -1,5 +1,6 @@
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.Semaphore
@@ -22,6 +23,8 @@ fun main() {
     monitor()
     atomicidad()
     mutex()
+    sinDispacher()
+    propioHilo()
 }
 
 /*
@@ -239,6 +242,81 @@ fun mutex() {
     }
 
     log("Final Value: ${counter}")
+    log("---------------")
+    if(counter == coroutinesAmount) {
+        log("Result: SUCCESS")
+    } else {
+        log("Result: FAIL")
+    }
+    log("---------------")
+
+    log("End")
+}
+
+/**
+ * La única diferencia entre el primer y estos ejercicios y otro es el hilo encargado de realizar el incremento de la variable.
+ * En el código inicial utilizamos el pool de hilos correspondiente a Dispatchers.Default al crear cada coroutine,
+ * mientras que en el código modificado no especificamos ningún Dispatcher asignándose así al hilo principal.
+ * El “truco” en sí no es precisamente usar el hilo principal, sino que un único hilo, no importa cual,
+ * pero solamente ese hilo sea el que modifica la variable. A esta técnica se le conoce como “confinamiento de hilo” —
+ * thread confinement” en Inglés — .
+ * Puedes usar tu propio hilo dedicado creándolo con una llamada a la función newSingleThreadContext como puedes ver en el otro hilo
+ */
+fun sinDispacher() {
+    log("Start Sin Dispacher")
+
+    val coroutinesAmount = 100_000
+    var counter = 0
+
+    log("Initial Value: $counter")
+
+    runBlocking {
+        val coroutines = List(coroutinesAmount) {
+            launch {
+                counter++
+            }
+        }
+
+        coroutines.forEach {
+            it.join()
+        }
+    }
+
+    log("Final Value: $counter")
+    log("---------------")
+    if(counter == coroutinesAmount) {
+        log("Result: SUCCESS")
+    } else {
+        log("Result: FAIL")
+    }
+    log("---------------")
+
+    log("End")
+}
+
+fun propioHilo() {
+    log("Start Propio Hilo")
+
+    val coroutinesAmount = 100_000
+    var counter = 0
+
+    log("Initial Value: $counter")
+
+    runBlocking {
+        val dedicatedThread = newSingleThreadContext("My Thread")
+
+        val coroutines = List(coroutinesAmount) {
+            launch(dedicatedThread) {
+                counter++
+            }
+        }
+
+        coroutines.forEach {
+            it.join()
+        }
+    }
+
+    log("Final Value: $counter")
     log("---------------")
     if(counter == coroutinesAmount) {
         log("Result: SUCCESS")
