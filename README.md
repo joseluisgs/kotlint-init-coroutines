@@ -40,6 +40,8 @@ Jugando con Corrutinas en Kotlin
     - [Atomicidad y estructuras thread-safe](#atomicidad-y-estructuras-thread-safe)
     - [Exclusión mutua](#exclusión-mutua)
     - [Confinamiento de Hilo](#confinamiento-de-hilo)
+    - [Uso de Canales y confinamiento de hilo](#uso-de-canales-y-confinamiento-de-hilo)
+    - [El constructor Actor](#el-constructor-actor)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -266,7 +268,12 @@ Para aplicar la exclusión mutua de una manera más simple en el mundo de las co
 ### Confinamiento de Hilo
 El “truco” en sí no es precisamente usar el hilo principal, sino que un único hilo, no importa cual, pero solamente ese hilo sea el que modifica la variable. A esta técnica se le conoce como “confinamiento de hilo” — thread confinement” en Inglés — . Puedes usar tu propio hilo dedicado creándolo con una llamada a la función newSingleThreadContext y que sea este el único encargado de modificar la sección crítica.
 
+### Uso de Canales y confinamiento de hilo
+El enfoque que debemos darle al uso de canales para aplicarlos correctamente bajo el concepto de confinamiento de hilo 
+sería implementando el patrón Fan-In con un solo hilo dedicado a consumir los datos del canal para posteriormente actualizar el estado. La idea entonces será enviar varios mensajes según queramos operar con el dato protegido tipos de mensajes diferentes a través del canal. Ejem24
 
+### El constructor Actor
+¿Recuerdas que el constructor produce retornaba un ReceiveChannel?. El constructor actor es la pareja del constructor produce, es decir, cuando creamos una coroutine utilizando el constructor actor obtenemos un SendChannel de retorno. Es decir, con el constructor actor obtenemos el SendChannel inmediatamente sin la necesidad de crear una coroutine que se encargue de recibir los mensajes que serán enviados a través del canal ya que el propio actor es la coroutine que recibirá los mensajes. Ejem25
 
 ## Autor
 
