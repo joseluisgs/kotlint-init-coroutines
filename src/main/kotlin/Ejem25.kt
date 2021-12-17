@@ -18,7 +18,7 @@ fun CoroutineScope.getSendChannel2(): SendChannel<Message2> = actor(newSingleThr
 }
 
 fun main() {
-    log("Start")
+    log("Start con Actor")
 
     val coroutinesAmount = 100_000
     var counter = 0
