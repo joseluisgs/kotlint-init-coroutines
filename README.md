@@ -8,6 +8,35 @@ Jugando con Corrutinas en Kotlin
 
 ![imagen](https://miro.medium.com/max/2000/1*I3OMp4jIytzR7GKpRkEiAA.png)
 
+- [Kotlin Init Coroutines](#kotlin-init-coroutines)
+  - [Acerca De](#acerca-de)
+  - [Suspender vs Bloquear. Funciones de suspensión](#suspender-vs-bloquear-funciones-de-suspensión)
+  - [Contexto de corrutina](#contexto-de-corrutina)
+  - [Constructores de Corrutinas](#constructores-de-corrutinas)
+    - [runBlocking](#runblocking)
+    - [launch](#launch)
+      - [job.join](#jobjoin)
+      - [job.cancel](#jobcancel)
+    - [async](#async)
+    - [produce](#produce)
+  - [Dispatchers](#dispatchers)
+  - [Secuencialidad vs Paralelismo](#secuencialidad-vs-paralelismo)
+  - [CourentineScope](#courentinescope)
+    - [Global scope](#global-scope)
+  - [Extra – Convertir callbacks a corrutinas](#extra--convertir-callbacks-a-corrutinas)
+  - [Synchronized y Mutex](#synchronized-y-mutex)
+  - [Canales](#canales)
+    - [Interfaces SendChannel y ReceiveChannel](#interfaces-sendchannel-y-receivechannel)
+    - [Pipelines](#pipelines)
+    - [Fan-out](#fan-out)
+    - [Fan-in](#fan-in)
+    - [BufferedChannel](#bufferedchannel)
+    - [Constructor Producer](#constructor-producer)
+  - [Autor](#autor)
+    - [Contacto](#contacto)
+  - [Licencia](#licencia)
+    - [Referencias](#referencias)
+
 ## Acerca De
 Distintos ejemplos de uso de Corrutinas y Concurrencia en Kotlin
 
@@ -72,7 +101,7 @@ Este objeto tiene una nueva función  llamada await() que es la que bloquea. Lla
 Si el resultado aún no esta listo, la corrutina se suspende en ese punto. Si ya tenemos el resultado, simplemente lo devolverá y continuará. De esta manera, puedes ejecutar tantas tareas en segundo plano como necesites.
 
 ### produce
-Este constructor crea una coroutine que se utiliza para la comunicación por medio de canales (Channels) con otras coroutines
+Este [constructor](#constructor-producer) crea una coroutine que se utiliza para la comunicación por medio de canales (Channels) con otras coroutines
 
 
 ## Dispatchers
@@ -166,6 +195,16 @@ Un fan-in es cuando múltiples corrutinas envían mensajes al mismo canal. Una c
 ### BufferedChannel
 Un BufferedChannel es cuando le indicamos al chanel un tamaño determinado, bloqueará la ejecución de la corrutina hasta que
 se vacíe si el buffer está lleno.
+
+### Constructor Producer
+El constructor produce se especializa en la creación de coroutines con la capacidad de transmitir datos a través de un canal. Mientras el constructor launch retorna un Job y el constructor async retorna un Deferred, cuando se crea una corotuine con el constructor produce, éste retorna el ReceiveChannel que usará para la transmisión de datos.
+
+Importante en la producción ye l consumo por canales: Según la documentación oficial, los datos transmitidos a través del canal pueden ser consumidos de manera continua 
+de dos maneras: con la función consumeEach y con un ciclo for valiéndose del hecho de que un canal implementa iteradores. 
+Cuando se consumen los datos aplicando el patrón Fan-Out, si uno de los consumidores falla, podría repercutir en todos los 
+involucrados, es decir, tanto en los emisores como en los demás receptores. 
+
+
 ## Autor
 
 Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twitter.com/joseluisgonsan)
