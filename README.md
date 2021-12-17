@@ -34,6 +34,11 @@ Jugando con Corrutinas en Kotlin
     - [Constructor Producer](#constructor-producer)
   - [Reactividad](#reactividad)
   - [Estados mutables compartidos](#estados-mutables-compartidos)
+    - [Funciones Puras](#funciones-puras)
+    - [Semáforos](#semáforos)
+    - [Monitores](#monitores)
+    - [Atomicidad y estructuras thread-safe](#atomicidad-y-estructuras-thread-safe)
+    - [Exclusión mutua](#exclusión-mutua)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -229,6 +234,33 @@ Pero además en el Ejm17 y Ejem18, se muestra un ejemplo sencillo del patrón Ob
 La primera opción es implementado por nosotros. La segunda opción usando los Delegados de Kotlin.
 
 ## Estados mutables compartidos
+Ene ste apartado veremos como resolver problemas de secciones críticas, estados mutables compartidos, y como
+implementar distintas soluciones usado coroutines. Ejem22
+
+### Funciones Puras
+Si conoces el paradigma de la programación funcional, sabrás que la inmutabilidad y las funciones puras son dos elementos esenciales en este paradigma. La inmutabilidad no es más que un dato, objeto, variable, etc., que no se puede modificar después de su creación. En Kotlin existe la palabra clave val para definir variables inmutables. Por otro lado, una función pura es una función que no modifica ningún estado fuera de su propio ámbito y siempre devolverá el mismo resultado para los mismos datos de entrada. La razón de tomar prestado estos dos aspectos de la programación funcional al trabajar con concurrencia es que ambos por definición son thread-safe. Ésto quiere decir que tanto el empleo de variables inmutables como las llamadas a funciones puras se pueden dar en un entorno de concurrencia de manera natural sin afectar el funcionamiento del programa ni la consistencia de los datos.
+
+### Semáforos
+Dentro del mundo de la concurrencia contamos con una estructura de administración de subprocesos llamada semáforo. Un semáforo es básicamente una estructura de control de subprocesos por medio de la adjudicación de permisos. Un subproceso puede tomar el papel de “adquisidor” o el papel de “liberador”. Cuando un subproceso desea acceder a un recurso compartido, toma el papel de adquisidor e intenta adquirir un permiso antes de hacerlo. Cuando un subproceso desocupa el recurso, toma el papel de liberador y libera el permiso que se le había concedido. 
+
+En Kotlin podemos usar la clase Semaphore para implementar semáforos y proteger la sección crítica con los métodos acquire y release. Opcionalmente podemos usar withPermit para simplificar la sintaxis de la llamada a acquire y release.
+
+### Monitores
+Los monitores son estructuras de control de subprocesos basados en la sincronización. Funcionan de manera muy similar a un semáforo. Básicamente un monitor es una estructura de encapsulamiento que oculta sus variables globales y lógica de negocio y que ofrece acceso al mundo exterior mediante métodos de servicio. Un monitor es por naturaleza un componente de sincronización por exclusión mutua, esto quiere decir que solamente un subproceso a la vez puede estar en ejecución dentro del monitor haciendo uso de alguno de sus métodos de servicio.
+
+Un monitor cuenta con un cerrojo que garantizará que solamente un subproceso a la vez se encuentra en ejecución dentro de las zonas críticas de su código.
+
+Al usar un ReentrantLock puedes crear tantas Conditions como desees ganando así la posibilidad de interrumpir subprocesos separadamente a partir de un mismo cerrojo. Ésto te permite clasificar mejor los subprocesos pudiendo generar subgrupos sin necesidad de crear varios cerrojos para ello.
+Dos cosas a tener en cuenta para implementar monitores: 
+- ReentrantLock que resulta mejor que un objeto de tipo Object (con Synchronized, wait y notifyAll) dado que está especialmente adaptado para lidiar con concurrencia y sincronización
+- Condition. Al usar un ReentrantLock puedes crear tantas Conditions como desees ganando así la posibilidad de interrumpir subprocesos separadamente a partir de un mismo cerrojo. Ésto te permite clasificar mejor los subprocesos pudiendo generar subgrupos sin necesidad de crear varios cerrojos para ello.
+
+### Atomicidad y estructuras thread-safe
+La atomicidad hace referencia a un conjunto o bloque de instrucciones secuenciales donde se garantiza la integridad de los datos llevando a cabo la ejecución de todas y cada una de las instrucciones de manera “aislada”.
+Podemos usar los tipos AtomicInteger, Log, o Reference o estructuras como BlockingQueue o ConcurrentHashMap para implementar atomicidad.
+
+### Exclusión mutua
+Para aplicar la exclusión mutua de una manera más simple en el mundo de las coroutines disponemos del objeto de tipo Mutex. La instrucción mutex.withLock {...} es la forma abreviada de mutex.lock(); try { ... } finally { mutex.unlock() }.
 
 ## Autor
 
