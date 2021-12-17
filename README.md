@@ -33,6 +33,7 @@ Jugando con Corrutinas en Kotlin
     - [BufferedChannel](#bufferedchannel)
     - [Constructor Producer](#constructor-producer)
   - [Reactividad](#reactividad)
+  - [Estados mutables compartidos](#estados-mutables-compartidos)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -205,6 +206,9 @@ de dos maneras: con la función consumeEach y con un ciclo for valiéndose del h
 Cuando se consumen los datos aplicando el patrón Fan-Out, si uno de los consumidores falla, podría repercutir en todos los 
 involucrados, es decir, tanto en los emisores como en los demás receptores. 
 
+Se podría llegar a la conclusión de que ambos hacen lo mismo y que usar uno o
+el otro es indiferente, pero si los ejecutas te darías cuenta de la falencia que tiene la función consumeEach. Si alguno de los receptores falla mientras está obteniendo los datos con la función consumeEach, provocará que el canal se cierre y que tanto el emisor como los demás receptores se detengan. Contrariamente cuando recibes los datos usando un ciclo for como en el segundo caso, el fallo de un receptor no tiene repercusión sobre el canal, por lo tanto los datos podrán seguir siendo recibidos por lo demás receptores que se encuentran en ejecución. Está en tus manos seleccionar uno u otro según el caso de uso que estés resolviendo, a fin de cuentas, la función consumeEach podría ser exactamente lo que necesitas. Ver Ejem19
+
 ## Reactividad
 La programación reactiva, o Reactive Programming, es un paradigma enfocado en el trabajo con flujos de datos finitos o 
 infinitos de manera asíncrona, permitiendo que estos datos se propaguen generando cambios en la aplicación, es decir, 
@@ -224,6 +228,7 @@ A Lo largo de estos ejemplos hemos visto como usando Canales (Channels) y Flujos
 Pero además en el Ejm17 y Ejem18, se muestra un ejemplo sencillo del patrón Observer usado cuando no queremos usar estas estructuras.
 La primera opción es implementado por nosotros. La segunda opción usando los Delegados de Kotlin.
 
+## Estados mutables compartidos
 
 ## Autor
 
