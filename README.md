@@ -43,6 +43,7 @@ Jugando con Corrutinas en Kotlin
     - [Uso de Canales y confinamiento de hilo](#uso-de-canales-y-confinamiento-de-hilo)
     - [El constructor Actor](#el-constructor-actor)
   - [Flujos](#flujos)
+  - [Canales de difusión](#canales-de-difusión)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -283,7 +284,18 @@ Un flujo de datos Flow consta de una estructura de 3 partes:
 - Operadores intermedios
 - Operadores terminales
 
-Preservación del contexto: Un Flow debe preservar el contexto en el que la función flow es invocada y hacer todas las emisiones dentro de dicho contexto. 
+Además, con un flujo, debemos cumplir: 
+- Preservación del contexto: Un Flow debe preservar el contexto en el que la función flow es invocada y hacer todas las emisiones dentro de dicho contexto.
+- Transparencia para las excepciones: Cualquier excepción que sea lanzada dentro del bloque flow no debería ser atrapada o manejada por un bloque try-catch, sino que se debe permitir que sea propagada a través del flujo de datos para que pueda ser capturada por algún operador catch que se encuentre en el camino.
+
+Por otro lado, siempre podemos crear nuestros propios operadores personalizados 
+
+Estos ejemplos los puedes ver en Ejem26 y Ejem27.
+
+## Canales de difusión
+Si has trabajado con el patrón de diseño ‘Observador’ habrás notado una pequeña similitud, sin embargo, también te habrás dado cuenta que dichos canales permiten que cada elemento producido y emitido a través del canal sea consumido solamente por 1 consumidor aunque hayan varios subprocesos a la vez atentos a la emisión.
+
+Existen un tipo de canal especial que permite que un elemento producido y emitido les llegue a todos los consumidores por igual, de esta manera el comportamiento se ajusta a la perfección al patrón de diseño ‘Observador’. Dicho canal es el BroadcastChannel. Ejem28. Además tenemos, ConflatedBroadcastChannel que nos permite “recuperar” el elemento más reciente además de seguir recibiendo los elemento subsecuentes al momento de la “subscripción”. Algo importante a tomar en cuenta es que el ConflatedBroadcastChannel no esperará a ningún consumidor, vale decir, aquellos consumidores que no puedan seguirle el paso a la producción de elementos perderán esos elementos que fueron producidos y emitidos en el período desde su último consumo hasta el consumo siguiente extrayendo así siempre el último elemento emitido en el momento del consumo. En pocas palabras, el ConflatedBroadcastChannel ya viene con su propio mecanismo de Backpressure descartando lo elementos no consumidos y manteniendo siempre el más reciente en el canal.
 
 
 ## Autor
