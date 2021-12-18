@@ -42,6 +42,7 @@ Jugando con Corrutinas en Kotlin
     - [Confinamiento de Hilo](#confinamiento-de-hilo)
     - [Uso de Canales y confinamiento de hilo](#uso-de-canales-y-confinamiento-de-hilo)
     - [El constructor Actor](#el-constructor-actor)
+  - [Flujos](#flujos)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Licencia](#licencia)
@@ -273,7 +274,17 @@ El enfoque que debemos darle al uso de canales para aplicarlos correctamente baj
 sería implementando el patrón Fan-In con un solo hilo dedicado a consumir los datos del canal para posteriormente actualizar el estado. La idea entonces será enviar varios mensajes según queramos operar con el dato protegido tipos de mensajes diferentes a través del canal. Ejem24
 
 ### El constructor Actor
-¿Recuerdas que el constructor produce retornaba un ReceiveChannel?. El constructor actor es la pareja del constructor produce, es decir, cuando creamos una coroutine utilizando el constructor actor obtenemos un SendChannel de retorno. Es decir, con el constructor actor obtenemos el SendChannel inmediatamente sin la necesidad de crear una coroutine que se encargue de recibir los mensajes que serán enviados a través del canal ya que el propio actor es la coroutine que recibirá los mensajes. Ejem25
+¿Recuerdas que el constructor produce retornaba un ReceiveChannel?. El constructor actor es la pareja del constructor produce, es decir, cuando creamos una coroutine utilizando el constructor actor obtenemos un SendChannel de retorno. Es decir, con el constructor actor obtenemos el SendChannel inmediatamente sin la necesidad de crear una coroutine que se encargue de recibir los mensajes que serán enviados a través del canal ya que el propio actor es la coroutine que recibirá los mensajes. Ejem25.
+
+## Flujos
+A diferencia de los canales que son estructuras de flujo de datos “en caliente” — ‘hot stream’ en Inglés — , Flow provee un flujo de datos “en frío” — ‘cold stream’ en Inglés — . ¿Qué quiere decir ésto? Se considera una estructura de flujo de datos “en caliente” a la producción y emisión de elementos sin importar si éstos son o no son requeridos. Ésto quiere decir que tan pronto se crea la fuente o productor, los elementos se empiezan a producir y emitir. En una estructura de flujo de datos “en frío”, por el contrario, los elementos son producidos y emitidos bajo demanda. Ésto quiere decir que los elementos se empiezan a producir y emitir hasta que el consumidor lo requiera y actúan de manera asíncrona.
+Un flujo de datos Flow consta de una estructura de 3 partes:
+- Creación del flujo de datos
+- Operadores intermedios
+- Operadores terminales
+
+Preservación del contexto: Un Flow debe preservar el contexto en el que la función flow es invocada y hacer todas las emisiones dentro de dicho contexto. 
+
 
 ## Autor
 
