@@ -26,7 +26,7 @@ fun isActive() {
         }
 
         delay(100)
-        while(job.isActive) {
+        while (job.isActive) {
             log("RunBlocking : Job is active")
             delay(1000)
         }
@@ -50,14 +50,14 @@ fun isCancelled() {
         }
 
         delay(2500)
-        while(job.isActive) {
+        while (job.isActive) {
             log("RunBlocking : Job is active")
             delay(1000)
             log("RunBlocking : Cancelling Job")
             job.cancel()
         }
 
-        if(job.isCancelled) {
+        if (job.isCancelled) {
             log("RunBlocking : Job is cancelled")
         } else {
             log("RunBlocking : Job is not cancelled")
@@ -80,16 +80,16 @@ fun isCompleted() {
         }
 
         delay(100)
-        while(job.isActive) {
+        while (job.isActive) {
             log("RunBlocking : Job is active")
             delay(1000)
         }
 
-        if(job.isCancelled) {
+        if (job.isCancelled) {
             log("RunBlocking : Job is cancelled")
         }
 
-        if(job.isCompleted) {
+        if (job.isCompleted) {
             log("RunBlocking : Job is completed")
         }
     }
@@ -114,7 +114,7 @@ fun fatherJob() {
             }
 
             delay(100)
-            while(childJob?.isActive == true) {
+            while (childJob?.isActive == true) {
                 log("Launch : Job is active")
                 delay(1000)
             }
@@ -123,26 +123,26 @@ fun fatherJob() {
         }
 
         delay(2500)
-        while(job.isActive) {
+        while (job.isActive) {
             log("RunBlocking : Job is active")
             delay(1000)
             log("RunBlocking : Cancelling Job")
             job.cancel()
         }
 
-        if(childJob?.isCancelled == true) {
+        if (childJob?.isCancelled == true) {
             log("RunBlocking : Child Job is cancelled")
         }
 
-        if(childJob?.isCompleted == true) {
+        if (childJob?.isCompleted == true) {
             log("RunBlocking : Child Job is completed")
         }
 
-        if(job.isCancelled) {
+        if (job.isCancelled) {
             log("RunBlocking : Job is cancelled")
         }
 
-        if(job.isCompleted) {
+        if (job.isCompleted) {
             log("RunBlocking : Job is completed")
         }
     }

@@ -5,8 +5,13 @@ estrictamente necesario. Teniendo en cuenta ésto, puedes enviar y recibir Chann
 simplemente pasando como parámetro o retornando un SendChannel o un ReceiveChannel según sea el caso.
  */
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 
 // Clase que recibe un canal para enviar las cosas, será el productor
@@ -31,7 +36,7 @@ class Receiver {
 
     // Recibe de un canal
     suspend fun processAction(channel: ReceiveChannel<Int>) = withContext(Dispatchers.Default) {
-        for(i in channel) {
+        for (i in channel) {
             messagesAmount++
         }
     }
@@ -86,7 +91,7 @@ fun main() {
     log("TOTAL = $total")
     log("--------------------")
 
-    if(total == sendersAmount * Sender.MESSAGES_AMOUNT) {
+    if (total == sendersAmount * Sender.MESSAGES_AMOUNT) {
         log("Final State: SUCCESS")
     } else {
         log("Final State: FAIL")

@@ -47,7 +47,7 @@ fun nada() {
 
     runBlocking {
         val coroutines = List(coroutinesAmount) {
-            launch (Dispatchers.Default) {
+            launch(Dispatchers.Default) {
                 counter++
             }
         }
@@ -59,7 +59,7 @@ fun nada() {
 
     log("Final Value: $counter")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")
@@ -86,7 +86,7 @@ fun semaforo() {
         val semaphore = Semaphore(1)
 
         val coroutines = List(coroutinesAmount) {
-            launch (Dispatchers.Default) {
+            launch(Dispatchers.Default) {
                 semaphore.withPermit {
                     counter++
                 }
@@ -100,7 +100,7 @@ fun semaforo() {
 
     log("Final Value: $counter")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")
@@ -151,7 +151,7 @@ fun monitor() {
     runBlocking {
 
         val coroutines = List(coroutinesAmount) {
-            launch (Dispatchers.Default) {
+            launch(Dispatchers.Default) {
                 monitor.performAction(it)
             }
         }
@@ -163,7 +163,7 @@ fun monitor() {
 
     log("Final Value: ${monitor.counter}")
     log("---------------")
-    if(monitor.counter == coroutinesAmount) {
+    if (monitor.counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")
@@ -195,7 +195,7 @@ fun atomicidad() {
 
     runBlocking {
         val coroutines = List(coroutinesAmount) {
-            launch (Dispatchers.Default) {
+            launch(Dispatchers.Default) {
                 counter.incrementAndGet()
             }
         }
@@ -207,7 +207,7 @@ fun atomicidad() {
 
     log("Final Value: ${counter.get()}")
     log("---------------")
-    if(counter.get() == coroutinesAmount) {
+    if (counter.get() == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")
@@ -229,7 +229,7 @@ fun mutex() {
         val mutex = Mutex()
 
         val coroutines = List(coroutinesAmount) {
-            launch (Dispatchers.Default) {
+            launch(Dispatchers.Default) {
                 mutex.withLock {
                     counter++
                 }
@@ -243,7 +243,7 @@ fun mutex() {
 
     log("Final Value: ${counter}")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")
@@ -284,7 +284,7 @@ fun sinDispacher() {
 
     log("Final Value: $counter")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")
@@ -318,7 +318,7 @@ fun propioHilo() {
 
     log("Final Value: $counter")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")

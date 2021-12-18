@@ -2,6 +2,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
+
 fun main() {
     ej01()
     ej02()
@@ -28,13 +29,13 @@ fun ej01() {
         delay(1250)
 
         val job2 = launch(Dispatchers.Default) {
-            bc.consumeEach {  number ->
+            bc.consumeEach { number ->
                 log("Receiver One: $number")
             }
         }
 
         val job3 = launch(Dispatchers.Default) {
-            bc.consumeEach {  number ->
+            bc.consumeEach { number ->
                 log("Receiver Two: $number")
             }
         }
@@ -67,13 +68,13 @@ fun ej02() {
         delay(1250)
 
         val job2 = launch(Dispatchers.Default) {
-            bc.consumeEach {  number ->
+            bc.consumeEach { number ->
                 log("Receiver One: $number")
             }
         }
 
         val job3 = launch(Dispatchers.Default) {
-            bc.consumeEach {  number ->
+            bc.consumeEach { number ->
                 log("Receiver Two: $number")
             }
         }
@@ -96,7 +97,7 @@ fun ej03() {
 
         launch(Dispatchers.Default) {
             val receiveChannel = bc.openSubscription()
-            for(number in receiveChannel){
+            for (number in receiveChannel) {
                 log("Receiver: $number")
                 delay(1000)
             }

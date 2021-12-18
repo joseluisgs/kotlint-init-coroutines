@@ -52,14 +52,14 @@ class FileReader : CoroutineScope {
         get() = job + Dispatchers.IO
 
     fun readFileWithLocalScope(filename: String) = launch {
-        for(i in 1..Int.MAX_VALUE) {
+        for (i in 1..Int.MAX_VALUE) {
             delay(500)
             log("Reading file \"$filename\" with local scope: Line #$i")
         }
     }
 
     fun readFileWithGlobalScope(filename: String) = GlobalScope.launch {
-        for(i in 1..Int.MAX_VALUE) {
+        for (i in 1..Int.MAX_VALUE) {
             delay(500)
             log("Reading file \"$filename\" with global scope: Line #$i")
         }

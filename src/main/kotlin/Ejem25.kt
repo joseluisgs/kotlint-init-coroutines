@@ -3,8 +3,8 @@ import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.channels.actor
 
 sealed class Message2
-object IncCounterMessage2: Message2()
-class GetCounterMessage2(val counterValue: CompletableDeferred<Int>): Message2()
+object IncCounterMessage2 : Message2()
+class GetCounterMessage2(val counterValue: CompletableDeferred<Int>) : Message2()
 
 fun CoroutineScope.getSendChannel2(): SendChannel<Message2> = actor(newSingleThreadContext("My Thread")) {
     var counter = 0
@@ -47,7 +47,7 @@ fun main() {
 
     log("Final Value: $counter")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")

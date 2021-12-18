@@ -1,9 +1,12 @@
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.produce
+import kotlinx.coroutines.runBlocking
 
 // Obtenemos los 10 primeros primos
 fun main() = runBlocking {
-   // Creamos un canal de recepcion de numeros desde el 2
+    // Creamos un canal de recepcion de numeros desde el 2
     var cur = numbersFrom(2)
     repeat(10) {
         // Obtenemos el primer numero primo

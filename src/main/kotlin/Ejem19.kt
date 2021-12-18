@@ -1,5 +1,7 @@
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.produce
 import kotlin.coroutines.CoroutineContext
 
 /*
@@ -29,7 +31,7 @@ fun main() {
     consumeFor()
 }
 
-class Sender2: CoroutineScope {
+class Sender2 : CoroutineScope {
 
     val job = Job()
     override val coroutineContext: CoroutineContext
@@ -45,7 +47,7 @@ class Sender2: CoroutineScope {
 
 }
 
-class Receiver2(private val id: Int): CoroutineScope {
+class Receiver2(private val id: Int) : CoroutineScope {
 
     val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         log("Receiver #$id Exception Caught: [ $exception ]")
@@ -59,7 +61,7 @@ class Receiver2(private val id: Int): CoroutineScope {
         // Usamos el consumeEach
         channel.consumeEach {
             i++
-            if(fail && i == 3)
+            if (fail && i == 3)
                 throw ArithmeticException("Receiver #$id: Playing with exceptions.")
 
             log("Receiver #$id: $it received!")
@@ -68,7 +70,7 @@ class Receiver2(private val id: Int): CoroutineScope {
 
 }
 
-class Receiver3(private val id: Int): CoroutineScope {
+class Receiver3(private val id: Int) : CoroutineScope {
 
     val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         log("Receiver #$id Exception Caught: [ $exception ]")
@@ -80,9 +82,9 @@ class Receiver3(private val id: Int): CoroutineScope {
     fun processData(channel: ReceiveChannel<Int>, fail: Boolean) = launch {
         var i = 0
         // Usamos el ciclo for
-        for(number in channel) {
+        for (number in channel) {
             i++
-            if(fail && i == 3)
+            if (fail && i == 3)
                 throw ArithmeticException("Receiver #$id: Playing with exceptions.")
 
             log("Receiver #$id: $number received!")

@@ -71,22 +71,22 @@ fun main() {
         }
     }
     // Mostramos los resultados
-        log("Queue size: ${queue.size}") // Cola que queda
-        log("Produced: $produced")
-        log("Consumed: $consumed")
+    log("Queue size: ${queue.size}") // Cola que queda
+    log("Produced: $produced")
+    log("Consumed: $consumed")
 
-        var total = 0
-        log("----- AMOUNTS ------")
-        amounts.forEachIndexed { index, amount ->
-            total += amount
-            log("Index #$index: $amount")
-        }
+    var total = 0
+    log("----- AMOUNTS ------")
+    amounts.forEachIndexed { index, amount ->
+        total += amount
+        log("Index #$index: $amount")
+    }
     // Suma
-        log("--------------------")
-        log("TOTAL = $total")
-        log("--------------------")
+    log("--------------------")
+    log("TOTAL = $total")
+    log("--------------------")
 
-        log("End")
+    log("End")
 }
 
 /*

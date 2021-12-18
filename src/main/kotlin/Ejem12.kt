@@ -55,7 +55,7 @@ fun main() {
                     // dentro del for estamos haciendo el recieve implicito
                     // internamente tambien tenemos ya corrutinas con la parte d eproductor y consumidor hechos
                     // https://kotlinlang.org/docs/channels.html#pipelines
-                    for(i in channel) {
+                    for (i in channel) {
                         mutex.withLock {
                             consumed++
                             amounts[it]++

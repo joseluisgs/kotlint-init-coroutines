@@ -15,7 +15,7 @@ correctamente y la otra función simulará la producción de un error lanzando u
 
  */
 
-class Operator: CoroutineScope {
+class Operator : CoroutineScope {
 
     // Estáticos de la clase
     companion object {
@@ -59,7 +59,7 @@ class Operator: CoroutineScope {
 
     // Suma tres números aleatorios
     private suspend fun sumThreeRandomNumbers(operation: String): Int = coroutineScope {
-       // val r1 = async { myRandomNumberFail(operation) } // Simulamos que falla
+        // val r1 = async { myRandomNumberFail(operation) } // Simulamos que falla
         val r1 = async { myRandomNumberSuccess(operation) }
         val r2 = async { myRandomNumberSuccess(operation) }
         val r3 = async { myRandomNumberSuccess(operation) }
@@ -87,9 +87,6 @@ class Operator: CoroutineScope {
         this.job.cancel()
     }
 }
-
-
-
 
 
 fun main() {

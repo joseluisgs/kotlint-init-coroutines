@@ -1,5 +1,4 @@
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.locks.ReentrantLock
@@ -26,7 +25,7 @@ Se deposita la cantidad en la otra cuenta.
 Se deduce del balance el monto que acaba de ser transferido.
 Muestra en pantalla el mensaje “Transfer completed!”.
  */
-class SavingsAccount(private val idField: String, initialBalance: Int): BankAccount {
+class SavingsAccount(private val idField: String, initialBalance: Int) : BankAccount {
 
     // Datos protegidos
     override val id: String
@@ -43,7 +42,7 @@ class SavingsAccount(private val idField: String, initialBalance: Int): BankAcco
         log("[$id] Starting transfer to ${to.id} ...")
         Thread.sleep(1000) // Simulamos un proceso pesado, una operación que tardaría 1 segundo
 
-        if(amount <= balance) {
+        if (amount <= balance) {
             to.deposit(amount)
             retire(amount)
             log("[$id] Transfer completed!")

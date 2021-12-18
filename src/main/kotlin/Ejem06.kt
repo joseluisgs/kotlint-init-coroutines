@@ -1,4 +1,6 @@
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import java.nio.charset.Charset
 import kotlin.streams.toList
 

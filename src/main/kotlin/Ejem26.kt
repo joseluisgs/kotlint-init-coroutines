@@ -1,16 +1,16 @@
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlin.system.measureTimeMillis
 import kotlin.coroutines.CoroutineContext
+import kotlin.system.measureTimeMillis
 
 /**
  * En los Flujos, los datos son en frío, es decir, se son producidos y emitidos bajo demanda
  * Si aparecen nuevos "consumidores" reciben los datos desde el comienzo hasta el final
  * Son asíncronos.
  * Un flujo de datos Flow consta de una estructura de 3 partes:
-* Creación del flujo de datos
-* Operadores intermedios
-* Operadores terminales
+ * Creación del flujo de datos
+ * Operadores intermedios
+ * Operadores terminales
  * Preservación del contexto: Un Flow debe preservar el contexto en el que la función flow es invocada y hacer todas
  * las emisiones dentro de dicho contexto.
  * — Transparencia para las excepciones: Cualquier excepción que sea lanzada dentro del bloque flow no debería ser
@@ -156,8 +156,8 @@ fun ejem05() {
     runBlocking {
         launch(Dispatchers.Default + CoroutineName("Red Coroutine")) {
             myFlow.collect { element ->
-                    log("${coroutineContext[CoroutineName]} -> Received: $element")
-                }
+                log("${coroutineContext[CoroutineName]} -> Received: $element")
+            }
         }
 
         launch(newSingleThreadContext("MyThread") + CoroutineName("Blue Coroutine")) {
@@ -205,7 +205,7 @@ fun ejem07() {
         myFlow
             .transform { text ->
                 val words = text.split(" ")
-                for(word in words) {
+                for (word in words) {
                     emit(word)
                 }
             }
@@ -684,7 +684,7 @@ fun ejem24() {
 
     runBlocking {
         val planets = myFlow
-            .filter{ planet -> planet.length > 5 }
+            .filter { planet -> planet.length > 5 }
             .toList()
         // Retorna una lista con los elementos que fueron recibidos.
 
@@ -714,14 +714,14 @@ fun ejem25() {
      */
     runBlocking {
         val job1 = myFlow
-            .onEach {number ->
+            .onEach { number ->
                 delay(150)
                 log("Number: $number")
             }
             .launchIn(this)
 
         val job2 = myFlow
-            .onEach {number ->
+            .onEach { number ->
                 delay(250)
                 log("Number: $number")
             }
@@ -764,14 +764,14 @@ fun ejem26() {
             .produceIn(myScope)
 
         val job1 = launch {
-            for(planet in channel1) {
+            for (planet in channel1) {
                 delay(150)
                 log("Channel 1: $planet")
             }
         }
 
         val job2 = launch {
-            for(planet in channel2) {
+            for (planet in channel2) {
                 delay(250)
                 log("Channel 2: $planet")
             }

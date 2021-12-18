@@ -3,6 +3,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlin.coroutines.CoroutineContext
+
 /*
 Crearemos una clase productora de planetas y una clase consumidora de planetas.
 La única función de la clase productora será transmitir los elementos de la lista de planetas a través de un canal.
@@ -42,7 +43,7 @@ class PlanetsProducer {
 }
 
 // Vamos a crear un propio contexto de ejecución, para que no se ejecute en el thread principal
-class PlanetsConsumer: CoroutineScope {
+class PlanetsConsumer : CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default
@@ -51,7 +52,7 @@ class PlanetsConsumer: CoroutineScope {
     suspend fun processPlanetsStream(planets: ReceiveChannel<Planet>) = withContext(Dispatchers.Default) {
         planets.filterByMoons(2)
             .mapToName()
-                // realiza una acción por cada elemento, es el forEach para canales, se puede usar un for
+            // realiza una acción por cada elemento, es el forEach para canales, se puede usar un for
             .consumeEach { planet ->
                 log("Planet consumed: $planet")
             }

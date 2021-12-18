@@ -27,6 +27,7 @@ class NewsAgency {
 
     // Añadimos un observador
     fun subscribe(publisher: Publisher) = listeners.add(publisher)
+
     // Eliminamos un observador
     fun unsubscribe(publisher: Publisher) = listeners.remove(publisher)
 }

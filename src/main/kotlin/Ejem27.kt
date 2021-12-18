@@ -1,5 +1,5 @@
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
 
 
 fun main() {
@@ -12,9 +12,9 @@ fun main() {
 
 // Creamos un operador intermedio
 fun Flow<Int>.squareAndFilterEven(): Flow<Int> = flow {
-    collect {  number ->
+    collect { number ->
         val squared = number * number
-        if(squared % 2 == 0)
+        if (squared % 2 == 0)
             emit(squared)
     }
 }
@@ -26,7 +26,7 @@ fun operadorIntermedio() {
 
     runBlocking {
         squaredEvenFlow
-            .collect {  squared ->
+            .collect { squared ->
                 log("$squared: This squared value is even.")
             }
     }
@@ -84,7 +84,7 @@ fun excepciones() {
     runBlocking {
         myFlow
             .map { number ->
-                if(number == 5)
+                if (number == 5)
                     throw IllegalStateException("Playing with exceptions on map operator.")
 
                 number * number
@@ -116,7 +116,7 @@ fun onStart() {
             .filter {
                 it.endsWith('e')
             }
-            .map {  color ->
+            .map { color ->
                 "'$color' length is ${color.length}"
             }
             .onStart {
@@ -151,7 +151,7 @@ fun onCompletion() {
             .filter { color ->
                 color.endsWith('e')
             }
-            .map {  color ->
+            .map { color ->
                 "'$color' length is ${color.length}"
             }
             .onCompletion {

@@ -28,7 +28,7 @@ fun withOutProducer() {
         }
 
         launch {
-            for(i in channel) {
+            for (i in channel) {
                 log("Received: $i")
             }
         }
@@ -52,7 +52,7 @@ fun withProducer() {
         }
 
         launch {
-            for(i in channel) {
+            for (i in channel) {
                 log("Received: $i")
             }
         }

@@ -14,8 +14,9 @@ La idea entonces será enviar dos tipos de mensajes diferentes a través del can
 
 // Clase mensaje sellada
 sealed class Message
+
 //  lo declaramos como un object para que solo exista una instancia que sea reutilizable (Singleton)
-object IncCounterMessage: Message()
+object IncCounterMessage : Message()
 
 /*
 El mensaje correspondiente a la solicitud del valor actual de la variable lo llamamos GetCounterMessage,
@@ -24,7 +25,7 @@ propiedad de tipo CompletableDeferred<Int> que usará el receptor del mensaje pa
 El emisor del mensaje podrá consultar el valor almacenado llamando a la función await del objeto CompletableDeferred
 provocando que se suspenda, para luego reanudarse tan pronto el receptor responda el mensaje.
  */
-class GetCounterMessage(val counterValue: CompletableDeferred<Int>): Message()
+class GetCounterMessage(val counterValue: CompletableDeferred<Int>) : Message()
 
 fun CoroutineScope.getSendChannel(): SendChannel<Message> {
     val channel = Channel<Message>()
@@ -77,7 +78,7 @@ fun main() {
 
     log("Final Value: $counter")
     log("---------------")
-    if(counter == coroutinesAmount) {
+    if (counter == coroutinesAmount) {
         log("Result: SUCCESS")
     } else {
         log("Result: FAIL")

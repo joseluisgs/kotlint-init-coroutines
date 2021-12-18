@@ -1,6 +1,7 @@
-
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.produce
 import kotlin.coroutines.CoroutineContext
 
 /*Crearemos una clase productora de planetas y una clase consumidora de planetas.
@@ -20,7 +21,7 @@ comparativo simple.
 data class Planet2(val name: String, val volume: Long, val radius: Double, val moons: Int, val rings: Boolean)
 
 // Creamos nuestro propio Scope, que hereda de CoroutineScope
-class PlanetsProducer2: CoroutineScope {
+class PlanetsProducer2 : CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default
@@ -48,7 +49,7 @@ class PlanetsProducer2: CoroutineScope {
 
 }
 
-class PlanetsConsumer2: CoroutineScope {
+class PlanetsConsumer2 : CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default

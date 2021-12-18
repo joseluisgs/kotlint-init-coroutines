@@ -75,14 +75,14 @@ fun concurrentCorutines2() = runBlocking {
 fun asyncAwait() = runBlocking {
     ("Inicio")
     val number = async {
-            ("Antes del delay")
-            delay(1000)
-            ("Despues de delay.")
-            (1..100).random()
-        }
-        ("Esto continua porque estamos en un contexto de RunBlocking...")
+        ("Antes del delay")
+        delay(1000)
+        ("Despues de delay.")
+        (1..100).random()
+    }
+    ("Esto continua porque estamos en un contexto de RunBlocking...")
     // Se espera hasta tener el valor con el await
-        ("Terminamos con el valor: ${number.await()}")
+    ("Terminamos con el valor: ${number.await()}")
     ("Fin")
 }
 

@@ -39,7 +39,7 @@ fun paralelismo() = runBlocking {
     log("Completed in $time ms")
 }
 
-fun composicionFuncionesAsincronia() = runBlocking{
+fun composicionFuncionesAsincronia() = runBlocking {
     val time = measureTimeMillis {
         log("The answer is ${concurrentSum()}")
     }
