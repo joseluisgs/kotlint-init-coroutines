@@ -118,6 +118,21 @@
             <version>1.5.2-native-mt</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+
+        <!-- SLF4J Bridge -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+
+
+
         <!-- kotlinx-coroutines-debug -->
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
